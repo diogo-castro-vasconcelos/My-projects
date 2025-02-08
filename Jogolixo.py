@@ -8,7 +8,7 @@ largura = 840
 altura = 680
 Pontos = 0
 xplayer = largura/2
-yplayer = 670
+yplayer = 650
 xlixo1 = 740
 xlixo2 = 140
 xlixo3 = 340
@@ -27,6 +27,28 @@ Fonte2 = pygame.font.SysFont("Times New Roman", 40 , True, False)
 ecra = pygame.display.set_mode((largura, altura))
     
 pygame.display.set_caption("Apanhó lixo")
+player_imagem = pygame.image.load("Jogolixo.py/Homem final de certeza.png")
+player_imagem = pygame.transform.scale(player_imagem, (100, 100))
+
+Lixo1_imagem = pygame.image.load("Jogolixo.py/homem das latas.png")
+Lixo1_imagem = pygame.transform.scale(Lixo1_imagem, (150, 150))
+
+Lixo2_imagem = pygame.image.load("Jogolixo.py/meu lanche.png")
+Lixo2_imagem = pygame.transform.scale(Lixo2_imagem, (150, 150))
+
+Lixo3_imagem = pygame.image.load("Jogolixo.py/Minha banana.png")
+Lixo3_imagem = pygame.transform.scale(Lixo3_imagem, (150, 150))
+
+Lixo4_imagem = pygame.image.load("Jogolixo.py/minha bebida favorita.png")
+Lixo4_imagem = pygame.transform.scale(Lixo4_imagem, (150, 150))
+
+player_rect = player_imagem.get_rect(center=(xplayer, yplayer))
+Lixo1_rect = player_imagem.get_rect(center=(xlixo1, ylixo1))
+Lixo2_rect = player_imagem.get_rect(center=(xlixo2, ylixo2))
+Lixo3_rect = player_imagem.get_rect(center=(xlixo3, ylixo3))
+Lixo4_rect = player_imagem.get_rect(center=(xlixo4, ylixo4))
+
+
 
 while coisa == True:
     tempo = pygame.time.get_ticks()/1000
@@ -35,11 +57,6 @@ while coisa == True:
     mensagem2 = f"Tempo: {tempo}"
     Text_formatado = Fonte.render(mensagem, False, (255,255,255))
     Text_formatado2 = Fonte.render(mensagem2, False, (255,255,255))
-    player =   pygame.draw.circle(ecra, (255,255,0), (xplayer, yplayer), 10 )
-    Lixo1 =   pygame.draw.rect(ecra, (255,0,255), (xlixo1,ylixo1,50,63))
-    Lixo2 =  pygame.draw.rect(ecra, (255,0,255), (xlixo2,ylixo2,50,63))
-    Lixo3 =    pygame.draw.rect(ecra, (255,0,255), (xlixo3,ylixo3,50,63))
-    Lixo4 =    pygame.draw.rect(ecra, (255,255,255), (xlixo4,ylixo4,50,63))
     if tempo >= 25 or Pontos == 10:
         coisa == False
         pygame.quit()
@@ -64,28 +81,33 @@ while coisa == True:
     ylixo4 = ylixo4 + velocidade4
 
 
-    if player.colliderect(Lixo1):
+    if player_rect.colliderect(Lixo1_rect):
         ylixo1 = 0
         Pontos = Pontos + 1 
-        yplayer = 670
         velocidade1 != 1
 
-    if player.colliderect(Lixo4):
+    if player_rect.colliderect(Lixo4_rect):
         Pontos = Pontos + 1
         ylixo4 = 0
-        yplayer = 670
         velocidade1 != 1
-    if player.colliderect(Lixo3):
+    if player_rect.colliderect(Lixo3_rect):
         Pontos = Pontos + 1
         ylixo3 = 0
-        yplayer = 670
         velocidade1 != 1
 
-    if player.colliderect(Lixo2):
+    if player_rect.colliderect(Lixo2_rect):
         Pontos = Pontos + 1  
         ylixo2 = 0
-        yplayer = 670
         velocidade1 != 1
+        
+        
+    player_rect.center = (xplayer, yplayer)
+
+    Lixo1_rect.center = (xlixo1, ylixo1)
+    Lixo2_rect.center = (xlixo2, ylixo2)
+    Lixo3_rect.center = (xlixo3, ylixo3)
+    Lixo4_rect.center = (xlixo4, ylixo4)
+
 
     
         
@@ -104,6 +126,12 @@ while coisa == True:
             if event.key == K_LEFT:
                 xplayer = xplayer + -50
 
+    ecra.blit(player_imagem, player_rect)
+
+    ecra.blit(Lixo1_imagem, Lixo1_rect)
+    ecra.blit(Lixo2_imagem, Lixo2_rect)
+    ecra.blit(Lixo3_imagem, Lixo3_rect)
+    ecra.blit(Lixo4_imagem, Lixo4_rect)
     ecra.blit(Text_formatado, (450,40))
     ecra.blit(Text_formatado2, (50,40))
     pygame.display.update()
